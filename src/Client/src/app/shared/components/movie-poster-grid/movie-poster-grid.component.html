@@ -1,0 +1,50 @@
+<div class="row">
+  <div
+    class="col-md-3 mb-5 animate__animated animate__fadeIn"
+    *ngFor="let movie of movies"
+  >
+    <ng-container [ngSwitch]="movie.original_Language">
+      <span class="badge bg-warning language" *ngSwitchCase="'es'">{{
+        movie.original_Language
+      }}</span>
+      <span class="badge bg-danger language" *ngSwitchCase="'en'">{{
+        movie.original_Language
+      }}</span>
+      <span class="badge bg-info language" *ngSwitchDefault>{{
+        movie.original_Language
+      }}</span>
+    </ng-container>
+
+
+    <img
+      [src]="movie.poster_Path | poster"
+      class="img-fluid poster"
+      (click)="onMovieClick(movie)"
+    />
+
+    <div>
+      <h3>{{ movie.title }}</h3>
+      <div class="row">
+        <div class="col-4" *ngFor="let genre of movie.genres">
+          <span class="badge badge-secondary">{{ genre }}</span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-10 text-white">
+          <star-rating
+            [value]="movie.vote_Average"
+            totalstars="10"
+            checkedcolor="yellow"
+            uncheckedcolor="grey"
+            size="14px"
+            readonly="false"
+          ></star-rating>
+        </div>
+        <div class="col-2 text-white">
+          {{ movie.vote_Average | number: "1.1-2" }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
